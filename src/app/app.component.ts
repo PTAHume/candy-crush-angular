@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import IAppComponent from './IAppComponent';
+
 const width: number = 8;
+
 const candyColors: string[] = [
   '/assets/images/blue-candy.png',
   '/assets/images/green-candy.png',
@@ -9,14 +11,18 @@ const candyColors: string[] = [
   '/assets/images/red-candy.png',
   '/assets/images/yellow-candy.png',
 ];
+
 const blank: string = '/assets/images/blank.png';
+
 const notValidRowOfFourCheck: number[] = [
   5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54,
   55, 62, 63, 64,
 ];
+
 const notValidRowOfThreeCheck: number[] = [
   6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 63, 64,
 ];
+
 const firstRow: number[] = [0, 1, 2, 3, 4, 5, 6, 7];
 
 @Component({
