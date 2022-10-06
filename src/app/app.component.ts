@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import IAppComponent from './IAppComponent';
 const width: number = 8;
 const candyColors: string[] = [
   '/assets/images/blue-candy.png',
@@ -17,26 +18,29 @@ const notValidRowOfThreeCheck: number[] = [
   6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 63, 64,
 ];
 const firstRow: number[] = [0, 1, 2, 3, 4, 5, 6, 7];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, IAppComponent {
   score: number = 0;
   squareBeingDraggedId: number = 0;
   squareBeingReplacedId: number = 0;
   currentColorArrangement: string[] = [];
-  createBoard = () => {
+
+  createBoard = (): void => {
     for (let i: number = 0; i < width * width; i++) {
       const randomColor: string =
         candyColors[Math.floor(Math.random() * candyColors.length)];
       this.currentColorArrangement.push(randomColor);
     }
   };
+
   ngOnInit(): void {
     this.createBoard();
-    this.updateGame();
+    this.UpdateGame();
   }
 
   CheckForColumnOfFour = (): boolean => {
@@ -156,15 +160,15 @@ export class AppComponent implements OnInit {
     return moveComplete;
   };
 
-  DragStart = (key: number) => {
+  DragStart = (key: number): void => {
     this.squareBeingDraggedId = key;
   };
 
-  DragDrop = (key: number) => {
+  DragDrop = (key: number): void => {
     this.squareBeingReplacedId = key;
   };
 
-  DragEnd = (key: number) => {
+  DragEnd = (key: number): void => {
     const validMoves = [
       this.squareBeingDraggedId - 1,
       this.squareBeingDraggedId - width,
@@ -196,7 +200,7 @@ export class AppComponent implements OnInit {
       this.currentColorArrangement[this.squareBeingReplacedId] = blank;
       this.squareBeingDraggedId = 0;
       this.squareBeingReplacedId = 0;
-      this.updateGame();
+      this.UpdateGame();
     } else {
       this.currentColorArrangement[this.squareBeingReplacedId] =
         squareBeingReplaced;
@@ -205,14 +209,14 @@ export class AppComponent implements OnInit {
     }
   };
 
-  updateGame = () => {
+  UpdateGame = (): void => {
     const timer = setInterval(() => {
       this.CheckForColumnOfFour();
       this.CheckForRowOfFour();
       this.CheckForColumnOfThree();
       this.CheckForRowOfThree();
       if (this.MoveIntoSquareBelow() === false) {
-        this.updateGame();
+        this.UpdateGame();
       } else {
         clearInterval(timer);
       }
