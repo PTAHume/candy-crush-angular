@@ -1,0 +1,12 @@
+<div class="app">
+  <div class="game">
+    <ng-container *ngFor="let item of currentColorArrangement, index as key">
+      <img data-id="{{key}}" src="{{item}}" alt="{{item}}" [draggable]="true" (dragstart)="DragStart(key)"
+        (drop)="DragDrop(key)" (dragend)="DragEnd(key)" (dragover)="$event.preventDefault()"
+        (dragenter)="$event.preventDefault()" (dragleave)="$event.preventDefault()" />
+    </ng-container>
+  </div>
+  <div class="scoreboard">
+    <h2>{{score}}</h2>
+  </div>
+</div>
